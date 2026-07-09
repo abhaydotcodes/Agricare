@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agricare with Chatbot</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 min-h-screen">
+
+  <!-- Example page content -->
+  <header class="bg-emerald-600 text-white p-6 text-center font-bold text-xl">
+    Welcome to Agricare
+  </header>
+  <main class="p-6">
+    <p class="text-gray-700">This is a demo page with chatbot integrated.</p>
+  </main>
+
+  <!-- Chatbot Toggle Button -->
+  <button id="chatToggle" class="fixed bottom-6 right-6 bg-emerald-600 text-white p-4 rounded-full shadow-lg hover:bg-emerald-700 z-50">
+    💬
+  </button>
+
+  <!-- Chatbot Window -->
+  <div id="chatWindow" class="hidden fixed bottom-20 right-6 w-80 bg-white shadow-xl rounded-2xl border border-gray-200 flex flex-col overflow-hidden z-50">
+    <!-- Header -->
+    <div class="bg-emerald-600 text-white p-3 font-semibold flex justify-between items-center">
+      AgriCare Chatbot
+      <button id="closeChat" class="text-white font-bold">✕</button>
+    </div>
+    <!-- Messages -->
+    <div id="chatMessages" class="flex-1 p-3 space-y-2 overflow-y-auto text-sm"></div>
+    <!-- Input -->
+    <div class="p-3 border-t flex">
+      <input id="chatInput" type="text" placeholder="Ask your query..." 
+        class="flex-1 border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"/>
+      <button id="sendChat" class="ml-2 bg-emerald-600 text-white px-4 py-2 rounded-lg hover:bg-emerald-700">Send</button>
+    </div>
+  </div>
+
+  <script>
+    const chatToggle = document.getElementById('chatToggle');
+    const chatWindow = document.getElementById('chatWindow');
+    const closeChat = document.getElementById('closeChat');
+    const chatMessages = document.getElementById('chatMessages');
+    const chatInput = document.getElementById('chatInput');
+    const sendChat = document.getElementById('sendChat');
+
+    // Toggle open/close
+    chatToggle.addEventListener('click', () => chatWindow.classList.toggle('hidden'));
+    closeChat.addEventListener('click', () => chatWindow.classList.add('hidden'));
+
+    // Send message
+    sendChat.addEventListener('click', sendMessage);
+    chatInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') sendMessage();
+    });
+
+    async function sendMessage() {
+      const query = chatInput.value.trim();
+      if (!query) return;
+
+      // Show user message
+      const userMsg = document.createElement('div');
+      userMsg.className = "text-right text-sm bg-emerald-100 p-2 rounded-lg";
+      userMsg.textContent = query;
+      chatMessages.appendChild(userMsg);
+      chatInput.value = "";
+
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+
+      // Show loading
+      const loadingMsg = document.createElement('div');
+      loadingMsg.className = "text-gray-500 italic text-sm";
+      loadingMsg.textContent = "Thinking...";
+      chatMessages.appendChild(loadingMsg);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+
+      try {
+        // Call your backend
+        const res = await fetch('https://agricare-production.up.railway.app/chat', {
+          method: 'POST',
+          headers: { 'Content-Type':'application/json' },
+          body: JSON.stringify({ query })
+        });
+        const data = await res.json();
+
+        chatMessages.removeChild(loadingMsg);
+
+        // Show bot response
+        const botMsg = document.createElement('div');
+        botMsg.className = "text-left text-sm bg-gray-100 p-2 rounded-lg";
+        botMsg.textContent = data.answer || "Sorry, I couldn’t process that.";
+        chatMessages.appendChild(botMsg);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+
+      } catch (err) {
+        console.error(err);
+        loadingMsg.textContent = "Error fetching response!";
+      }
+    }
+  </script>
+
+</body>
+</html>

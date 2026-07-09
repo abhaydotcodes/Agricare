@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Field Selection - Agricare</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-6L1MFFZ6R9"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-6L1MFFZ6R9');
+  </script>
+</head>
+<body class="min-h-screen flex flex-col relative">
+
+  <!-- Background -->
+  <div class="absolute inset-0">
+    <img src="image/img.jpeg" alt="Background" class="w-full h-full object-cover">
+    <div class="absolute inset-0 bg-white/65"></div>
+  </div>
+
+  <div class="flex-grow relative z-10">
+    <!-- Header -->
+    <header class="max-w-7xl mx-auto px-6 py-6 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <img src="image/logo.jpeg" alt="AgriCare Logo" class="w-10 h-10 rounded-lg object-cover">
+        <div>
+          <h1 class="text-lg font-semibold text-slate-800">Agricare Advisory</h1>
+          <p class="text-xs text-slate-500">Smart farming · Sustainable yields</p>
+        </div>
+      </div>
+      <nav class="hidden md:flex items-center gap-6 text-sm">
+        <a href="home.html" class="ml-4 px-4 py-2 rounded-lg bg-emerald-600 text-white text-sm">Home</a>
+      </nav>
+    </header>
+
+    <!-- Field Selection Form -->
+    <div class="flex justify-center items-start mt-12 px-6">
+      <div class="bg-white rounded-xl shadow-lg p-8 w-full max-w-3xl">
+        <h2 class="text-2xl font-bold mb-4 text-slate-800">Select Your Field</h2>
+        <form id="fieldForm">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+            <div>
+              <label class="block text-sm font-medium">District</label>
+              <select id="district" class="w-full border rounded p-2 mt-1">
+                <option value="">Loading districts...</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium">Subdistrict</label>
+              <select id="subdistrict" class="w-full border rounded p-2 mt-1">
+                <option value="">Select subdistrict</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium">Soil Type</label>
+              <select id="soil" class="w-full border rounded p-2 mt-1">
+                <option value="">Select soil type</option>
+              </select>
+            </div>
+          </div>
+
+          <button type="submit" class="w-full bg-emerald-600 text-white py-2 rounded mt-3">
+            Get Crop Suggestions
+          </button>
+        </form>
+
+        <!-- Crop Suggestions -->
+        <div id="resultBox" class="mt-4 hidden bg-emerald-50 p-4 rounded text-slate-700">
+          <h3 class="font-semibold mb-2">Recommended Crops:</h3>
+          <ul id="cropList" class="list-disc list-inside"></ul>
+        </div>
+
+        <!-- Dashboard -->
+        <div id="dashboard" class="mt-6 p-6 bg-white rounded-xl shadow-lg grid grid-cols-1 lg:grid-cols-2 gap-6 hidden">
+
+          <!-- Crop Price Trends -->
+          <div class="col-span-1 bg-white rounded-xl shadow p-4">
+            <h3 class="text-lg font-semibold mb-4 text-slate-800">Crop Price Trends</h3>
+            <canvas id="priceChart" width="400" height="200"></canvas>
+          </div>
+
+          <!-- Crop Popularity -->
+          <div class="col-span-1 bg-white rounded-xl shadow p-4">
+            <h3 class="text-lg font-semibold mb-4 text-slate-800">Crop Popularity</h3>
+            <canvas id="popularityChart" width="400" height="200"></canvas>
+          </div>
+
+          <!-- Soil Suitability / Yield Forecast -->
+          <div class="col-span-1 bg-white rounded-xl shadow p-4">
+            <h3 class="text-lg font-semibold mb-4 text-slate-800">Soil Suitability & Yield Forecast</h3>
+            <canvas id="yieldChart" width="400" height="200"></canvas>
+          </div>
+
+          <!-- Quick Insights / Metrics -->
+          <div class="col-span-1 bg-white rounded-xl shadow p-4 flex flex-col gap-4">
+            <h3 class="text-lg font-semibold mb-2 text-slate-800">Quick Insights</h3>
+            <div class="grid grid-cols-2 gap-4">
+              <div class="bg-emerald-100 p-4 rounded text-center">
+                <p class="text-sm text-slate-600">Most Profitable Crop</p>
+                <p id="topCrop" class="font-bold text-xl text-emerald-700">--</p>
+              </div>
+              <div class="bg-yellow-100 p-4 rounded text-center">
+                <p class="text-sm text-slate-600">Best Soil Type</p>
+                <p id="bestSoil" class="font-bold text-xl text-yellow-700">--</p>
+              </div>
+              <div class="bg-red-100 p-4 rounded text-center">
+                <p class="text-sm text-slate-600">Low Yield Risk</p>
+                <p id="lowRisk" class="font-bold text-xl text-red-700">--</p>
+              </div>
+              <div class="bg-blue-100 p-4 rounded text-center">
+                <p class="text-sm text-slate-600">Suggested Crop Count</p>
+                <p id="cropCount" class="font-bold text-xl text-blue-700">--</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="mt-auto bg-slate-900 text-white text-center py-4">
+    &copy; 2025 Agricare Advisory. All Rights Reserved.
+  </footer>
+
+  <script>
+    const districtSelect = document.getElementById('district');
+    const subdistrictSelect = document.getElementById('subdistrict');
+    const soilSelect = document.getElementById('soil');
+    const form = document.getElementById('fieldForm');
+    const resultBox = document.getElementById('resultBox');
+    const cropList = document.getElementById('cropList');
+
+    let priceChart, popularityChart, yieldChart;
+
+    // Load districts
+    async function loadDistricts() {
+      try {
+        const res = await fetch('https://agricare-production.up.railway.app/districts');
+        const data = await res.json();
+        districtSelect.innerHTML = '<option value="">Select district</option>';
+        data.forEach(d => {
+          districtSelect.innerHTML += `<option value="${d.district_id}">${d.name}</option>`;
+        });
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
+    // Load subdistricts
+    async function loadSubdistricts(districtId) {
+  try {
+    const res = await fetch(`https://agricare-production.up.railway.app/subdistricts/${districtId}`);
+    const data = await res.json();
+    subdistrictSelect.innerHTML = '<option value="">Select subdistrict</option>';
+    data.forEach(s => subdistrictSelect.innerHTML += `<option value="${s.subdistrict_id}">${s.name}</option>`);
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+
+    // Load soils
+    async function loadSoils() {
+      try {
+        const res = await fetch('https://agricare-production.up.railway.app/soils');
+        const data = await res.json();
+        soilSelect.innerHTML = '<option value="">Select soil type</option>';
+        data.forEach(s => soilSelect.innerHTML += `<option value="${s.soil_id}">${s.soil_name}</option>`);
+      } catch (err) { console.error(err); }
+    }
+
+    window.onload = () => {
+      loadDistricts();
+      loadSoils();
+    };
+
+    districtSelect.addEventListener('change', () => {
+      const districtId = districtSelect.value;
+      if (districtId) loadSubdistricts(districtId);
+      else subdistrictSelect.innerHTML = '<option value="">Select subdistrict</option>';
+    });
+
+    // Form submit
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (!districtSelect.value || !subdistrictSelect.value || !soilSelect.value) {
+        alert("Please select district, subdistrict, and soil type.");
+        return;
+      }
+
+      const payload = {
+        district: districtSelect.value,
+        subdistrict: subdistrictSelect.value,
+        soil: soilSelect.value
+      };
+
+      try {
+        const res = await fetch('https://agricare-production.up.railway.app/field-advisory', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        const data = await res.json();
+        if (res.ok) {
+          cropList.innerHTML = "";
+          data.suggested_crops.forEach(crop => cropList.innerHTML += `<li>${crop}</li>`);
+          resultBox.classList.remove('hidden');
+          showDashboard(data.suggested_crops);
+        } else {
+          alert(data.message || "Failed to fetch crop suggestions");
+        }
+      } catch (err) {
+        console.error(err);
+        alert("Server error");
+      }
+    });
+
+    function showDashboard(crops) {
+      // Price Trends
+      const ctx1 = document.getElementById('priceChart').getContext('2d');
+      if (priceChart) priceChart.destroy();
+      priceChart = new Chart(ctx1, {
+        type: 'line',
+        data: {
+          labels: ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],
+          datasets: crops.map(c => ({
+            label: c,
+            data: Array.from({length:12},()=>Math.floor(Math.random()*100)+100),
+            borderColor: '#' + Math.floor(Math.random()*16777215).toString(16),
+            fill: false
+          }))
+        }
+      });
+
+      // Popularity
+      const ctx2 = document.getElementById('popularityChart').getContext('2d');
+      if (popularityChart) popularityChart.destroy();
+      popularityChart = new Chart(ctx2, {
+        type: 'bar',
+        data: {
+          labels: crops,
+          datasets: [{
+            label: 'Popularity',
+            data: crops.map(()=>Math.floor(Math.random()*100)+10),
+            backgroundColor: '#34D399'
+          }]
+        }
+      });
+
+      // Yield Chart
+      const ctx3 = document.getElementById('yieldChart').getContext('2d');
+      if (yieldChart) yieldChart.destroy();
+      yieldChart = new Chart(ctx3, {
+        type: 'radar',
+        data: {
+          labels: ["Alluvial Soil","Loamy Soil","Arid Soil","Saline Soil","Black Soil","Red Soil"],
+          datasets: [{
+            label: 'Yield Suitability',
+            data: Array.from({length:6},()=>Math.floor(Math.random()*100)),
+            backgroundColor: 'rgba(16,185,129,0.2)',
+            borderColor: '#10B981'
+          }]
+        },
+        options: { scales: { r: { suggestedMin:0, suggestedMax:100 } } }
+      });
+
+      // Quick Insights
+      document.getElementById('topCrop').innerText = crops[0] || '--';
+      document.getElementById('bestSoil').innerText = 'Loamy Soil';
+      document.getElementById('lowRisk').innerText = 'Low';
+      document.getElementById('cropCount').innerText = crops.length;
+      document.getElementById('dashboard').classList.remove('hidden');
+    }
+  </script>
+
+
+<!-- Chatbot Toggle Button -->
+<button id="chatToggle" class="fixed bottom-6 right-6 bg-emerald-600 text-white p-4 rounded-full shadow-lg hover:bg-emerald-700 z-50">
+  💬
+</button>
+
+<!-- Chatbot Window -->
+<div id="chatWindow" class="hidden fixed bottom-20 right-6 w-80 bg-white shadow-xl rounded-2xl border border-gray-200 flex flex-col overflow-hidden z-50">
+  <!-- Header -->
+  <div class="bg-emerald-600 text-white p-3 font-semibold flex justify-between items-center">
+    AgriCare Chatbot
+    <button id="closeChat" class="text-white font-bold">✕</button>
+  </div>
+  <!-- Messages -->
+  <div id="chatMessages" class="flex-1 p-3 space-y-2 overflow-y-auto text-sm"></div>
+  <!-- Input -->
+  <div class="p-3 border-t flex">
+    <input id="chatInput" type="text" placeholder="Ask your query..." 
+      class="flex-1 border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"/>
+    <button id="sendChat" class="ml-2 bg-emerald-600 text-white px-4 py-2 rounded-lg hover:bg-emerald-700">Send</button>
+  </div>
+</div>
+
+<script>
+  const chatToggle = document.getElementById('chatToggle');
+  const chatWindow = document.getElementById('chatWindow');
+  const closeChat = document.getElementById('closeChat');
+  const chatMessages = document.getElementById('chatMessages');
+  const chatInput = document.getElementById('chatInput');
+  const sendChat = document.getElementById('sendChat');
+
+  // Toggle open/close
+  chatToggle.addEventListener('click', () => chatWindow.classList.toggle('hidden'));
+  closeChat.addEventListener('click', () => chatWindow.classList.add('hidden'));
+
+  // Send message
+  sendChat.addEventListener('click', sendMessage);
+  chatInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') sendMessage();
+  });
+
+  async function sendMessage() {
+    const query = chatInput.value.trim();
+    if (!query) return;
+
+    // Show user message
+    const userMsg = document.createElement('div');
+    userMsg.className = "text-right text-sm bg-emerald-100 p-2 rounded-lg";
+    userMsg.textContent = query;
+    chatMessages.appendChild(userMsg);
+    chatInput.value = "";
+
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+
+    // Show loading
+    const loadingMsg = document.createElement('div');
+    loadingMsg.className = "text-gray-500 italic text-sm";
+    loadingMsg.textContent = "Thinking...";
+    chatMessages.appendChild(loadingMsg);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+
+    try {
+      // Call your backend
+      const res = await fetch('https://agricare-production.up.railway.app/chat', {
+        method: 'POST',
+        headers: { 'Content-Type':'application/json' },
+        body: JSON.stringify({ query })
+      });
+      const data = await res.json();
+
+      chatMessages.removeChild(loadingMsg);
+
+      // Show bot response
+      const botMsg = document.createElement('div');
+      botMsg.className = "text-left text-sm bg-gray-100 p-2 rounded-lg";
+      botMsg.textContent = data.answer || "Sorry, I couldn’t process that.";
+      chatMessages.appendChild(botMsg);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+
+    } catch (err) {
+      console.error(err);
+      loadingMsg.textContent = "Error fetching response!";
+    }
+  }
+</script>
+
+</body>
+</html>

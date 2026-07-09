@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Agricare</title>
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- i18next CDN -->
+  <script src="https://unpkg.com/i18next@21.9.1/dist/umd/i18next.min.js"></script>
+  <script src="https://unpkg.com/i18next-browser-languagedetector@6.1.4/dist/umd/i18nextBrowserLanguageDetector.min.js"></script>
+  <script src="https://unpkg.com/jquery@3.6.0/dist/jquery.min.js"></script>
+  <script src="https://unpkg.com/jquery-i18next@1.2.2/dist/umd/jquery-i18next.min.js"></script>
+</head>
+<body class="min-h-screen bg-gradient-to-b from-emerald-50 to-white text-slate-800">
+
+<!-- LANGUAGE SWITCHER -->
+<div class="max-w-7xl mx-auto px-6 mt-4 flex justify-end gap-2">
+  <button onclick="changeLanguage('en')" class="px-3 py-1 bg-gray-200 rounded">English</button>
+  <button onclick="changeLanguage('hi')" class="px-3 py-1 bg-gray-200 rounded">हिंदी</button>
+  <button onclick="changeLanguage('pa')" class="px-3 py-1 bg-gray-200 rounded">ਪੰਜਾਬੀ</button>
+</div>
+
+<!-- NAVBAR -->
+<header class="max-w-7xl mx-auto px-6 py-6 flex items-center justify-between">
+  <div class="flex items-center gap-3">
+    <img src="image/logo.jpeg" alt="AgriCare Logo" class="w-10 h-10 rounded-lg object-cover">
+    <div>
+      <h1 class="text-lg font-semibold">Agricare</h1>
+      <p class="text-xs text-slate-500" data-i18n="tagline">Smart farming · Sustainable yields</p>
+    </div>
+  </div>
+  <nav class="hidden md:flex items-center gap-6 text-sm">
+    <a href="#services" class="hover:text-emerald-600" data-i18n="navServices">Services</a>
+    <a href="aim.html" class="hover:text-emerald-600" data-i18n="navAim">Our Aim</a>
+    <a href="team.html" class="hover:text-emerald-600" data-i18n="navTeam">Our Team</a>
+    <a href="index.html" class="ml-4 px-4 py-2 rounded-lg bg-emerald-600 text-white text-sm" data-i18n="navLogout">Logout</a>
+  </nav>
+  <button class="md:hidden p-2 rounded-md bg-emerald-100">☰</button>
+</header>
+
+<!-- HERO -->
+<section class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-8 items-center py-12">
+  <div>
+    <h2 class="text-3xl md:text-4xl font-extrabold leading-tight" data-i18n="heroTitle">Agricare Advisory — grow smarter, waste less</h2>
+    <p class="mt-4 text-slate-600" data-i18n="heroDesc">
+      Actionable crop advice, soil and pest guidance, irrigation recommendations and fertilizer planning — tailored for your farm, on your timeline.
+    </p>
+    <div class="mt-6 flex flex-wrap gap-4">
+      <a href="field.html" class="px-5 py-3 border border-emerald-600 text-emerald-600 rounded-lg" data-i18n="cropSuggestions">Crop Suggestions</a>
+      <a href="advisory.html" class="px-5 py-3 border border-emerald-600 text-emerald-600 rounded-lg" data-i18n="pestManagement">Pest Management</a>
+    </div>
+    <ul class="mt-6 grid grid-cols-2 gap-3 text-sm text-slate-600">
+      <li data-i18n="feature1">• Farmer-friendly recommendations</li>
+      <li data-i18n="feature2">• SMS & App alerts</li>
+      <li data-i18n="feature3">• 24/7 Help Available</li>
+      <li data-i18n="feature4">• Weather-aware advisories</li>
+    </ul>
+    <div class="mt-6 text-xs text-slate-500" data-i18n="trusted">Trusted by smallholders & agri-businesses — practical advice, verified by experts.</div>
+  </div>
+  <div class="relative">
+    <img src="https://images.unsplash.com/photo-1501004318641-b39e6451bec6?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=example" alt="farm" class="rounded-xl shadow-lg w-full h-80 object-cover"/>
+    <div class="absolute -bottom-6 left-6 bg-white/90 rounded-lg p-4 shadow-md w-11/12 md:w-10/12">
+      <div class="flex items-center gap-4">
+        <div class="w-12 h-12 bg-emerald-100 rounded-md flex items-center justify-center">🌾</div>
+        <div>
+          <div class="text-sm font-semibold" data-i18n="freeCheck">Free crop status check</div>
+          <div class="text-xs text-slate-500" data-i18n="expertAvailable">Our Agri-Experts are 24/7 available for your service.</div>
+        </div>
+        <div class="ml-auto hidden sm:block">
+          <a href="#contact" class="text-emerald-600 text-sm" data-i18n="requestNow">Request now →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services" class="max-w-7xl mx-auto px-6 py-12">
+  <h3 class="text-2xl font-bold" data-i18n="servicesTitle">Our Services</h3>
+  <p class="text-slate-600 mt-2" data-i18n="servicesDesc">Comprehensive advisory built for real farms — practical, localized, and affordable.</p>
+  <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 overflow-visible relative">
+    <article class="bg-white rounded-xl p-5 shadow-sm transform transition-all duration-500 hover:scale-125 hover:-translate-y-10 hover:z-50 cursor-pointer">
+      <h4 class="font-semibold" data-i18n="service1Title">Soil Testing & Fertility</h4>
+      <p class="text-sm text-slate-600 mt-2" data-i18n="service1Desc">Detailed soil reports with fertilizer plans and nutrient management.</p>
+    </article>
+    <article class="bg-white rounded-xl p-5 shadow-sm transform transition-all duration-500 hover:scale-125 hover:-translate-y-10 hover:z-50 cursor-pointer">
+      <h4 class="font-semibold" data-i18n="service2Title">Pest & Disease Advisory</h4>
+      <p class="text-sm text-slate-600 mt-2" data-i18n="service2Desc">Image-based diagnosis and treatment recommendations.</p>
+    </article>
+    <article class="bg-white rounded-xl p-5 shadow-sm transform transition-all duration-500 hover:scale-125 hover:-translate-y-10 hover:z-50 cursor-pointer">
+      <h4 class="font-semibold" data-i18n="service3Title">Irrigation & Water</h4>
+      <p class="text-sm text-slate-600 mt-2" data-i18n="service3Desc">Optimized irrigation scheduling to save water and increase yields.</p>
+    </article>
+    <article class="bg-white rounded-xl p-5 shadow-sm transform transition-all duration-500 hover:scale-125 hover:-translate-y-10 hover:z-50 cursor-pointer">
+      <h4 class="font-semibold" data-i18n="service4Title">Crop Planning</h4>
+      <p class="text-sm text-slate-600 mt-2" data-i18n="service4Desc">Seasonal crop selection and rotation planning.</p>
+    </article>
+    <article class="bg-white rounded-xl p-5 shadow-sm transform transition-all duration-500 hover:scale-125 hover:-translate-y-10 hover:z-50 cursor-pointer">
+      <h4 class="font-semibold" data-i18n="service5Title">Market Advisory</h4>
+      <p class="text-sm text-slate-600 mt-2" data-i18n="service5Desc">Harvest timing and market price pointers for better returns.</p>
+    </article>
+    <article class="bg-white rounded-xl p-5 shadow-sm transform transition-all duration-500 hover:scale-125 hover:-translate-y-10 hover:z-50 cursor-pointer">
+      <h4 class="font-semibold" data-i18n="service6Title">Digital Farm Records</h4>
+      <p class="text-sm text-slate-600 mt-2" data-i18n="service6Desc">Record keeping and analytics for farm decisions.</p>
+    </article>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how" class="bg-emerald-50 py-12">
+  <div class="max-w-6xl mx-auto px-6">
+    <h3 class="text-2xl font-bold" data-i18n="howTitle">How Agricare works</h3>
+    <p class="text-slate-600 mt-2" data-i18n="howDesc">Fast, affordable and localized advice in 3 simple steps.</p>
+    <ol class="mt-6 grid grid-cols-1 md:grid-cols-3 gap-6 overflow-visible relative">
+      <li class="bg-white rounded-lg p-6 shadow-sm transform transition-all duration-500 hover:scale-110 hover:-translate-y-6 hover:z-50 cursor-pointer text-center" data-i18n="step1">1. Share field details</li>
+      <li class="bg-white rounded-lg p-6 shadow-sm transform transition-all duration-500 hover:scale-110 hover:-translate-y-6 hover:z-50 cursor-pointer text-center" data-i18n="step2">2. Receive tailored plan</li>
+      <li class="bg-white rounded-lg p-6 shadow-sm transform transition-all duration-500 hover:scale-110 hover:-translate-y-6 hover:z-50 cursor-pointer text-center" data-i18n="step3">3. Follow up & support</li>
+    </ol>
+  </div>
+</section>
+
+<!-- LEARN WITH AGRICARE VIDEO SECTION -->
+<section class="max-w-7xl mx-auto px-6 py-16 bg-emerald-50 rounded-xl mt-12">
+  <h2 class="text-3xl font-bold text-center mb-8 text-emerald-700" data-i18n="videoTitle">Learn With Agricare</h2>
+  <div class="flex justify-center">
+    <iframe class="w-full md:w-3/4 h-96 rounded-lg shadow-lg"
+            src="https://www.youtube.com/embed/kQGU0gBihr0?si=qXdTUfwxK6KZoxNl"
+            title="Agricare Tutorial"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen>
+    </iframe>
+  </div>
+</section>
+
+<!-- 🌦️ Weather Map Section -->
+<section class="max-w-7xl mx-auto px-6 py-16 bg-white rounded-xl mt-12 shadow">
+  <h2 class="text-3xl font-bold text-center mb-6 text-emerald-700">
+    Live Weather Map of India
+  </h2>
+  <p class="text-center text-gray-600 mb-8">
+    Stay updated with real-time wind, rain, and temperature patterns across India. Zoom into Punjab for local details.
+  </p>
+  <div class="flex justify-center">
+    <iframe 
+      src="https://embed.windy.com/embed2.html?lat=22&lon=78&zoom=4&level=surface&overlay=wind&menu=&message=true&marker=&calendar=now&pressure=true&type=map&location=coordinates&detail=&detailLat=22&detailLon=78&metricWind=default&metricTemp=default&radarRange=-1"
+      width="100%" 
+      height="500" 
+      frameborder="0" 
+      class="rounded-lg shadow-lg">
+    </iframe>
+  </div>
+</section>
+
+
+<!-- CONTACT -->
+<section id="contact" class="bg-white py-12">
+  <div class="max-w-5xl mx-auto px-6 grid md:grid-cols-2 gap-8">
+    <div>
+      <h3 class="text-2xl font-bold" data-i18n="contactTitle">Contact our Agri Experts</h3>
+      <p class="text-slate-600 mt-2" data-i18n="contactDesc">Tell us about your farm and we’ll get back with a tailored plan. Free initial check.</p>
+    </div>
+    <div>
+      <form id="contactForm" class="bg-emerald-50 p-6 rounded-lg">
+        <label class="block text-sm" data-i18n="nameLabel">Name</label>
+        <input id="name" name="name" class="w-full mt-1 p-2 rounded border" placeholder="" data-i18n="[placeholder]namePlaceholder" required />
+
+        <label class="block text-sm mt-3" data-i18n="emailLabel">Email or Phone</label>
+        <input id="email" name="email" class="w-full mt-1 p-2 rounded border" placeholder="" data-i18n="[placeholder]emailPlaceholder" required />
+
+        <label class="block text-sm mt-3" data-i18n="messageLabel">Message</label>
+        <textarea id="message" name="message" rows="4" class="w-full mt-1 p-2 rounded border" placeholder="" data-i18n="[placeholder]messagePlaceholder" required></textarea>
+
+        <div class="mt-4 flex gap-3">
+          <button type="submit" class="px-4 py-2 bg-emerald-600 text-white rounded" data-i18n="sendBtn">Send</button>
+          <button type="reset" class="px-3 py-2 border rounded" data-i18n="clearBtn">Clear</button>
+        </div>
+      </form>
+      <div id="formMsg" class="mt-3 text-sm"></div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="mt-12 bg-slate-900 text-white">
+  <div class="max-w-7xl mx-auto px-6 py-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+    <div>
+      <div class="font-semibold">Agricare Advisory</div>
+      <div class="text-xs text-slate-300 mt-1" data-i18n="footerDesc">Practical farm advice — local experts.</div>
+    </div>
+    <div class="text-sm text-slate-300">© <span id="year"></span> Agricare Advisory — All rights reserved</div>
+  </div>
+</footer>
+
+<!-- JS -->
+<script>
+document.getElementById("year").textContent = new Date().getFullYear();
+
+// i18next translations
+const resources = {
+  en: { translation: {
+    tagline: "Smart farming · Sustainable yields",
+    navServices: "Services",
+    navAim: "Our Aim",
+    navTeam: "Our Team",
+    navLogout: "Logout",
+    heroTitle: "Agricare Advisory — grow smarter, waste less",
+    heroDesc: "Actionable crop advice, soil and pest guidance, irrigation recommendations and fertilizer planning — tailored for your farm, on your timeline.",
+    cropSuggestions: "Crop Suggestions",
+    pestManagement: "Pest Management",
+    feature1: "• Farmer-friendly recommendations",
+    feature2: "• SMS & App alerts",
+    feature3: "• 24/7 Help Available",
+    feature4: "• Weather-aware advisories",
+    trusted: "Trusted by smallholders & agri-businesses — practical advice, verified by experts.",
+    freeCheck: "Free crop status check",
+    expertAvailable: "Our Agri-Experts are 24/7 available for your service.",
+    requestNow: "Request now →",
+    servicesTitle: "Our Services",
+    servicesDesc: "Comprehensive advisory built for real farms — practical, localized, and affordable.",
+    service1Title: "Soil Testing & Fertility",
+    service1Desc: "Detailed soil reports with fertilizer plans and nutrient management.",
+    service2Title: "Pest & Disease Advisory",
+    service2Desc: "Image-based diagnosis and treatment recommendations.",
+    service3Title: "Irrigation & Water",
+    service3Desc: "Optimized irrigation scheduling to save water and increase yields.",
+    service4Title: "Crop Planning",
+    service4Desc: "Seasonal crop selection and rotation planning.",
+    service5Title: "Market Advisory",
+    service5Desc: "Harvest timing and market price pointers for better returns.",
+    service6Title: "Digital Farm Records",
+    service6Desc: "Record keeping and analytics for farm decisions.",
+    howTitle: "How Agricare works",
+    howDesc: "Fast, affordable and localized advice in 3 simple steps.",
+    step1: "1. Share field details",
+    step2: "2. Receive tailored plan",
+    step3: "3. Follow up & support",
+    videoTitle: "Learn With Agricare",
+    contactTitle: "Contact our Agri Experts",
+    contactDesc: "Tell us about your farm and we’ll get back with a tailored plan. Free initial check.",
+    nameLabel: "Name",
+    namePlaceholder: "Your name",
+    emailLabel: "Email or Phone",
+    emailPlaceholder: "Email or mobile",
+    messageLabel: "Message",
+    messagePlaceholder: "Tell us about your crop/concern",
+    sendBtn: "Send",
+    clearBtn: "Clear",
+    footerDesc: "Practical farm advice — local experts."
+  }},
+  hi: { translation: {
+    tagline: "स्मार्ट खेती · सतत पैदावार",
+    navServices: "सेवाएँ",
+    navAim: "हमारा उद्देश्य",
+    navTeam: "हमारी टीम",
+    navLogout: "लॉग आउट",
+    heroTitle: "एग्रीकेयर सलाह — स्मार्ट खेती, कम नुकसान",
+    heroDesc: "क्रॉप सलाह, मिट्टी और कीट मार्गदर्शन, सिंचाई और उर्वरक योजना — आपकी खेत की जरूरत के अनुसार।",
+    cropSuggestions: "फसल सुझाव",
+    pestManagement: "कीट प्रबंधन",
+    feature1: "• किसान-अनुकूल सिफारिशें",
+    feature2: "• SMS और ऐप अलर्ट",
+    feature3: "• 24/7 सहायता उपलब्ध",
+    feature4: "• मौसम-जागरूक सलाह",
+    trusted: "छोटे किसानों और कृषि व्यवसायों द्वारा भरोसा — विशेषज्ञों द्वारा सत्यापित व्यावहारिक सलाह।",
+    freeCheck: "मुफ्त फसल स्थिति जांच",
+    expertAvailable: "हमारे एग्री-विशेषज्ञ 24/7 आपकी सेवा में उपलब्ध हैं।",
+    requestNow: "अब अनुरोध करें →",
+    servicesTitle: "हमारी सेवाएँ",
+    servicesDesc: "वास्तविक खेतों के लिए व्यापक सलाह — व्यावहारिक, स्थानीय और किफायती।",
+    service1Title: "मिट्टी परीक्षण और उर्वरक योजना",
+    service1Desc: "उर्वरक योजना और पोषक तत्व प्रबंधन के साथ विस्तृत मिट्टी रिपोर्ट।",
+    service2Title: "कीट और रोग सलाह",
+    service2Desc: "छवि-आधारित निदान और उपचार सिफारिशें।",
+    service3Title: "सिंचाई और जल प्रबंधन",
+    service3Desc: "पानी बचाने और उपज बढ़ाने के लिए अनुकूलित सिंचाई।",
+    service4Title: "फसल योजना",
+    service4Desc: "मौसमी फसल चयन और रोटेशन योजना।",
+    service5Title: "बाजार सलाह",
+    service5Desc: "बेहतर रिटर्न के लिए फसल और बाजार मूल्य संकेत।",
+    service6Title: "डिजिटल फार्म रिकॉर्ड",
+    service6Desc: "फार्म निर्णयों के लिए रिकॉर्ड रखने और विश्लेषण।",
+    howTitle: "एग्रीकेयर कैसे काम करता है",
+    howDesc: "3 सरल चरणों में तेज़, किफायती और स्थानीयकृत सलाह।",
+    step1: "1. खेत का विवरण साझा करें",
+    step2: "2. व्यक्तिगत योजना प्राप्त करें",
+    step3: "3. फ़ॉलो अप और समर्थन",
+    videoTitle: "एग्रीकेयर के साथ सीखें",
+    contactTitle: "हमारे एग्री विशेषज्ञों से संपर्क करें",
+    contactDesc: "हमें अपने खेत के बारे में बताएं और हम एक व्यक्तिगत योजना के साथ वापस आएंगे। मुफ्त प्रारंभिक जाँच।",
+    nameLabel: "नाम",
+    namePlaceholder: "आपका नाम",
+    emailLabel: "ईमेल या फ़ोन",
+    emailPlaceholder: "ईमेल या मोबाइल",
+    messageLabel: "संदेश",
+    messagePlaceholder: "अपने फसल/समस्या के बारे में बताएं",
+    sendBtn: "भेजें",
+    clearBtn: "साफ़ करें",
+    footerDesc: "व्यावहारिक कृषि सलाह — स्थानीय विशेषज्ञ।"
+  }},
+  pa: { translation: {
+    tagline: "ਸਮਾਰਟ ਖੇਤੀ · ਸਥਿਰ ਫਸਲ",
+    navServices: "ਸੇਵਾਵਾਂ",
+    navAim: "ਸਾਡਾ ਮਕਸਦ",
+    navTeam: "ਸਾਡੀ ਟੀਮ",
+    navLogout: "ਲੌਗ ਆਊਟ",
+    heroTitle: "ਐਗ੍ਰਿਕੇਅਰ ਸਲਾਹ — ਸਮਾਰਟ ਖੇਤੀ, ਘੱਟ ਨੁਕਸਾਨ",
+    heroDesc: "ਫਸਲ ਸਲਾਹ, ਮਿੱਟੀ ਅਤੇ ਕੀਟ ਮਾਰਗਦਰਸ਼ਨ, ਸਿੰਚਾਈ ਅਤੇ ਖਾਦ ਯੋਜਨਾ — ਤੁਹਾਡੇ ਖੇਤ ਲਈ।",
+    cropSuggestions: "ਫਸਲ ਸੁਝਾਅ",
+    pestManagement: "ਕੀਟ ਪ੍ਰਬੰਧਨ",
+    feature1: "• ਕਿਸਾਨ-ਮਿੱਤ੍ਰ ਸਿਫਾਰਸ਼ਾਂ",
+    feature2: "• SMS ਅਤੇ ਐਪ ਅਲਰਟ",
+    feature3: "• 24/7 ਸਹਾਇਤਾ ਉਪਲਬਧ",
+    feature4: "• ਮੌਸਮ-ਸੁਚੇਤ ਸਲਾਹ",
+    trusted: "ਛੋਟੇ ਕਿਸਾਨਾਂ ਅਤੇ ਕਿਰਸਾਨੀ ਵਪਾਰਾਂ ਦੁਆਰਾ ਭਰੋਸਾ — ਵਿਸ਼ੇਸ਼ਜਨਾਂ ਦੁਆਰਾ ਪ੍ਰਮਾਣਿਤ ਪ੍ਰਯੋਗਕਰਮਿਕ ਸਲਾਹ।",
+    freeCheck: "ਮੁਫ਼ਤ ਫਸਲ ਸਥਿਤੀ ਚੈੱਕ",
+    expertAvailable: "ਸਾਡੇ ਐਗਰੀ-ਵਿਸ਼ੇਸ਼ਜਨ 24/7 ਤੁਹਾਡੇ ਲਈ ਉਪਲਬਧ ਹਨ।",
+    requestNow: "ਹੁਣ ਬੇਨਤੀ ਕਰੋ →",
+    servicesTitle: "ਸਾਡੀਆਂ ਸੇਵਾਵਾਂ",
+    servicesDesc: "ਅਸਲੀ ਖੇਤਾਂ ਲਈ ਵਿਆਪਕ ਸਲਾਹ — ਪ੍ਰਯੋਗਕਰਮਿਕ, ਸਥਾਨਕ ਅਤੇ ਕਿਫਾਇਤੀ।",
+    service1Title: "ਮਿੱਟੀ ਟੈਸਟਿੰਗ ਅਤੇ ਉਰਵਰਕ ਯੋਜਨਾ",
+    service1Desc: "ਉਰਵਰਕ ਯੋਜਨਾ ਅਤੇ ਪੋਸ਼ਣ ਤੱਤ ਪ੍ਰਬੰਧਨ ਦੇ ਨਾਲ ਵਿਸਤ੍ਰਿਤ ਮਿੱਟੀ ਰਿਪੋਰਟ।",
+    service2Title: "ਕੀਟ ਅਤੇ ਬਿਮਾਰੀ ਸਲਾਹ",
+    service2Desc: "ਛਵੀ-ਆਧਾਰਿਤ ਨਿਰਣਾਇ ਅਤੇ ਇਲਾਜ ਸਿਫਾਰਸ਼ਾਂ।",
+    service3Title: "ਸਿੰਚਾਈ ਅਤੇ ਪਾਣੀ ਪ੍ਰਬੰਧਨ",
+    service3Desc: "ਪਾਣੀ ਬਚਾਉਣ ਅਤੇ ਫਸਲ ਵਧਾਉਣ ਲਈ ਓਪਟੀਮਾਈਜ਼ਡ ਸਿੰਚਾਈ।",
+    service4Title: "ਫਸਲ ਯੋਜਨਾ",
+    service4Desc: "ਮੌਸਮੀ ਫਸਲ ਚੋਣ ਅਤੇ ਰੋਟੇਸ਼ਨ ਯੋਜਨਾ।",
+    service5Title: "ਬਜ਼ਾਰ ਸਲਾਹ",
+    service5Desc: "ਵਧੀਆ ਮੁਨਾਫ਼ੇ ਲਈ ਫਸਲ ਅਤੇ ਬਜ਼ਾਰ ਮੁੱਲ ਨਿਦੇਸ਼।",
+    service6Title: "ਡਿਜੀਟਲ ਫਾਰਮ ਰਿਕਾਰਡ",
+    service6Desc: "ਖੇਤ ਦੇ ਫੈਸਲਿਆਂ ਲਈ ਰਿਕਾਰਡ ਰੱਖਣਾ ਅਤੇ ਵਿਸ਼ਲੇਸ਼ਣ।",
+    howTitle: "ਐਗ੍ਰਿਕੇਅਰ ਕਿਵੇਂ ਕੰਮ ਕਰਦਾ ਹੈ",
+    howDesc: "3 ਸਧਾਰਣ ਕਦਮਾਂ ਵਿੱਚ ਤੇਜ਼, ਕਿਫਾਇਤੀ ਅਤੇ ਸਥਾਨਕ ਸਲਾਹ।",
+    step1: "1. ਖੇਤ ਵੇਰਵਾ ਸਾਂਝਾ ਕਰੋ",
+    step2: "2. ਵਿਅਕਤੀਗਤ ਯੋਜਨਾ ਪ੍ਰਾਪਤ ਕਰੋ",
+    step3: "3. ਫਾਲੋਅਪ ਅਤੇ ਸਹਾਇਤਾ",
+    videoTitle: "ਐਗ੍ਰਿਕੇਅਰ ਨਾਲ ਸਿੱਖੋ",
+    contactTitle: "ਸਾਡੇ ਐਗਰੀ ਵਿਸ਼ੇਸ਼ਜਾਂ ਨਾਲ ਸੰਪਰਕ ਕਰੋ",
+    contactDesc: "ਸਾਨੂੰ ਆਪਣੇ ਖੇਤ ਬਾਰੇ ਦੱਸੋ ਅਤੇ ਅਸੀਂ ਇੱਕ ਵਿਅਕਤੀਗਤ ਯੋਜਨਾ ਨਾਲ ਵਾਪਸ ਆਵਾਂਗੇ। ਮੁਫ਼ਤ ਸ਼ੁਰੂਆਤੀ ਜਾਂਚ।",
+    nameLabel: "ਨਾਂ",
+    namePlaceholder: "ਤੁਹਾਡਾ ਨਾਮ",
+    emailLabel: "ਈਮੇਲ ਜਾਂ ਫ਼ੋਨ",
+    emailPlaceholder: "ਈਮੇਲ ਜਾਂ ਮੋਬਾਈਲ",
+    messageLabel: "ਸੰਦੇਸ਼",
+    messagePlaceholder: "ਆਪਣੀ ਫਸਲ/ਚਿੰਤਾ ਬਾਰੇ ਦੱਸੋ",
+    sendBtn: "ਭੇਜੋ",
+    clearBtn: "ਸਾਫ਼ ਕਰੋ",
+    footerDesc: "ਪ੍ਰਯੋਗਕਰਮਿਕ ਖੇਤੀ ਸਲਾਹ — ਸਥਾਨਕ ਵਿਸ਼ੇਸ਼ਜ."
+  }}
+};
+
+// Initialize i18next
+i18next.use(i18nextBrowserLanguageDetector).init({
+  resources,
+  fallbackLng: 'en',
+  debug: false
+}, function(err, t) {
+  updateContent();
+});
+
+// Function to update all elements
+function updateContent() {
+  document.querySelectorAll("[data-i18n]").forEach(el => {
+    const key = el.getAttribute("data-i18n");
+    if (key.includes("[placeholder]")) {
+      const actualKey = key.replace("[placeholder]", "");
+      el.setAttribute("placeholder", i18next.t(actualKey));
+    } else {
+      el.innerText = i18next.t(key);
+    }
+  });
+}
+
+// Change language dynamically
+function changeLanguage(lang) {
+  i18next.changeLanguage(lang, updateContent);
+}
+</script>
+<script>
+  // Contact form submission
+  document.getElementById("contactForm").addEventListener("submit", function(e) {
+    e.preventDefault(); // Prevent page reload
+
+    const formData = {
+      name: document.getElementById("name").value,
+      email: document.getElementById("email").value,
+      message: document.getElementById("message").value
+    };
+
+    // Replace with your backend URL
+    const backendUrl = "https://agricare-production.up.railway.app/submit";
+
+    fetch(backendUrl, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(formData)
+    })
+    .then(async res => {
+      const data = await res.json();
+      if(res.ok){
+        document.getElementById("formMsg").innerText = "Message sent successfully!";
+        document.getElementById("contactForm").reset();
+      } else {
+        document.getElementById("formMsg").innerText = data.message || "Failed to send message.";
+      }
+    })
+    .catch(err => {
+      console.error(err);
+      document.getElementById("formMsg").innerText = "Failed to send message.";
+    });
+  });
+</script>
+<!-- Floating Chatbot -->
+<div id="chat-widget">
+  <div id="chat-header" onclick="toggleChat()">
+    <span>AgriBot 🌱</span>
+    <span id="chat-toggle">▼</span>
+  </div>
+  <div id="chat-body">
+    <div id="chat-box"></div>
+    <div id="chat-options">
+      <button onclick="selectOption('best crop')">Best Crop</button>
+      <button onclick="selectOption('fertilizer')">Fertilizer</button>
+      <button onclick="selectOption('irrigation')">Irrigation</button>
+      <button onclick="selectOption('weather')">Weather Map</button>
+    </div>
+  </div>
+</div>
+
+<style>
+/* Chat Widget Container */
+#chat-widget {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 360px;
+  font-family: 'Arial', sans-serif;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  border-radius: 12px;
+  overflow: hidden;
+  z-index: 1000;
+  transition: all 0.3s ease;
+  background: #f9f9f9;
+}
+
+/* Header */
+#chat-header {
+  background: #10b981; /* emerald green */
+  color: white;
+  padding: 12px 16px;
+  cursor: pointer;
+  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Body Hidden by Default */
+#chat-body {
+  display: none;
+  flex-direction: column;
+  height: 400px;
+  background: #ffffff;
+  transition: all 0.3s ease;
+}
+
+/* Chat Box */
+#chat-box {
+  flex: 1;
+  padding: 12px;
+  overflow-y: auto;
+  border-bottom: 1px solid #eee;
+}
+
+/* Messages */
+.user-msg {
+  text-align: right;
+  margin: 8px 0;
+}
+.user-msg span {
+  background: #10b981;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 18px;
+  display: inline-block;
+  max-width: 80%;
+}
+
+.bot-msg {
+  text-align: left;
+  margin: 8px 0;
+}
+.bot-msg span {
+  background: #f3f4f6;
+  color: #111;
+  padding: 8px 12px;
+  border-radius: 18px;
+  display: inline-block;
+  max-width: 80%;
+}
+
+/* Options Buttons */
+#chat-options {
+  padding: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+}
+#chat-options button {
+  padding: 6px 10px;
+  border: none;
+  background: #10b981;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+#chat-options button:hover {
+  background: #059669;
+}
+</style>
+
+<script>
+let chatOpen = false;
+
+// Toggle chat open/close
+function toggleChat() {
+  chatOpen = !chatOpen;
+  document.getElementById("chat-body").style.display = chatOpen ? "flex" : "none";
+  document.getElementById("chat-toggle").innerText = chatOpen ? "▲" : "▼";
+}
+
+// Predefined responses
+const predefinedResponses = {
+  "best crop": { 
+    message: "You can get a personalized crop advisory based on your soil and location.", 
+    redirect: "field.html" 
+  },
+  "fertilizer": { 
+    message: "Check the best fertilizer recommendations for your crop and soil.", 
+    redirect: "advisory.html" 
+  },
+  "irrigation": { 
+    message: "Follow this guide for irrigation schedules of different crops.", 
+    redirect: "advisory.html" 
+  },
+  "weather": { 
+    message: "Here is the live weather map of India. Scroll down to see it below.", 
+    redirect: "#weather-section" 
+  }
+};
+
+// Handle user selection
+function selectOption(option) {
+  const chatBox = document.getElementById("chat-box");
+  const responseData = predefinedResponses[option];
+
+  // Show user message
+  chatBox.innerHTML += `<div class="user-msg"><span>${option}</span></div>`;
+
+  // Show bot message with delay for realism
+  setTimeout(() => {
+    chatBox.innerHTML += `<div class="bot-msg"><span>${responseData.message}</span></div>`;
+    chatBox.scrollTop = chatBox.scrollHeight;
+
+    // Redirect / Scroll
+    if (responseData.redirect.startsWith("#")) {
+      document.querySelector(responseData.redirect).scrollIntoView({ behavior: 'smooth' });
+    } else {
+      window.location.href = responseData.redirect;
+    }
+  }, 500);
+}
+</script>
+
+
+</body>
+</html>
+
