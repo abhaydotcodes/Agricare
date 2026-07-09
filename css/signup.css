@@ -1,0 +1,100 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: url("../image/img.jpeg") no-repeat center center fixed;
+  background-size: cover;
+  position: relative;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(255, 255, 255, 0.4); /* 60% transparent overlay */
+  z-index: -1;
+}
+
+/* Navbar */
+.navbar {
+  background: #15803d;
+  padding: 24px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 20px;
+}
+.navbar a {
+  color: #ffffff;
+  text-decoration: none;
+  margin: 0 18px;
+  font-weight: bold;
+}
+.navbar a:hover {
+  color: #bbf7d0;
+}
+
+/* Container */
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  margin-top: 60px;
+  min-height: calc(100vh - 120px);
+}
+
+/* Signup Box */
+.login-box {
+  background: #f0fdf4;
+  padding: 40px 50px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  text-align: center;
+  width: 380px;
+}
+.login-box h2 {
+  margin-bottom: 20px;
+  color: #166534;
+  font-size: 28px;
+}
+.input-box {
+  margin-bottom: 18px;
+  text-align: left;
+}
+.input-box label {
+  font-size: 16px;
+  color: #374151;
+  display: block;
+  margin-bottom: 6px;
+}
+.input-box input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #bbf7d0;
+  border-radius: 6px;
+  font-size: 15px;
+}
+.btn {
+  width: 100%;
+  padding: 14px;
+  background: #16a34a;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 17px;
+  transition: background 0.3s;
+}
+.btn:hover {
+  background: #15803d;
+}
+
+/* Footer */
+.footer {
+  background: #15803d;
+  text-align: center;
+  padding: 24px;
+  color: #bbf7d0;
+  margin-top: 40px;
+  font-size: 16px;
+}
